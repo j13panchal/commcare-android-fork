@@ -1,15 +1,12 @@
 package org.commcare.android.tests.formnav;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 
 import org.commcare.CommCareApplication;
 import org.commcare.CommCareTestApplication;
 import org.commcare.activities.FormEntryActivity;
-import org.commcare.activities.components.FormEntryConstants;
 import org.commcare.android.CommCareTestRunner;
 import org.commcare.android.database.user.models.FormRecord;
 import org.commcare.android.util.ActivityLaunchUtils;
@@ -25,7 +22,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowEnvironment;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -74,9 +70,8 @@ public class EndOfFormTest {
     private static ShadowActivity navigateFormEntry(Intent formEntryIntent) {
         // launch form entry
         FormEntryActivity formEntryActivity =
-                Robolectric.buildActivity(FormEntryActivity.class).withIntent(formEntryIntent)
+                Robolectric.buildActivity(FormEntryActivity.class, formEntryIntent)
                         .create().start().resume().get();
-
 
 
         // enter an answer for the question

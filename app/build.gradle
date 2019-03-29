@@ -38,9 +38,8 @@ configurations {
 dependencies {
 
     testImplementation 'junit:junit:4.12'
-    testImplementation ('org.robolectric:robolectric:3.2.2')
-    testImplementation 'org.robolectric:shadows-multidex:3.2.2'
-    testImplementation 'org.robolectric:shadows-core:3.2.2'
+    testImplementation ('org.robolectric:robolectric:4.2')
+    testImplementation 'org.robolectric:shadows-multidex:4.2'
     testImplementation 'org.json:json:20140107'
     testImplementation project(path: ':commcare-core', configuration: 'testsAsJar')
 
@@ -450,6 +449,9 @@ android {
             jvmArgs '-noverify'
             systemProperty 'robolectric.logging.enable', true
             systemProperty 'robolectric.logging', 'stdout'
+        }
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }

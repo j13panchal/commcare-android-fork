@@ -18,9 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.util.ActivityController;
 
 import java.util.List;
 
@@ -30,45 +30,45 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(CommCareTestRunner.class)
 public class RecoveryMeasuresTest {
 
-    private static final String REINSTALL_AND_UPDATE_VALID_FOR_CURRENT_APP_VERSION =  "{ \"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String REINSTALL_AND_UPDATE_VALID_FOR_CURRENT_APP_VERSION = "{ \"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\", \"recovery_measures\": " +
             "[{\"sequence_number\":1, \"type\":\"app_reinstall_and_update\", \"cc_version_min\":\"2.44.0\", " +
             "\"cc_version_max\":\"2.90.0\", \"app_version_min\":0," +
             "\"app_version_max\":6} ]}";
 
-    private static final String REINSTALL_AND_UPDATE_INVALID_FOR_CURRENT_APP_VERSION =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String REINSTALL_AND_UPDATE_INVALID_FOR_CURRENT_APP_VERSION = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":2, \"type\":\"app_reinstall_and_update\", \"cc_version_min\":\"2.44.0\", " +
             "\"cc_version_max\":\"2.90.0\", \"app_version_min\":0, \"app_version_max\":5} ]}";
 
-    private static final String CC_REINSTALL_INVALID_FOR_CURRENT_CC_VERSION =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String CC_REINSTALL_INVALID_FOR_CURRENT_CC_VERSION = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":3, \"type\":\"cc_reinstall\", \"cc_version_min\":\"2.44.0\", " +
             "\"cc_version_max\":\"2.44.0\", \"app_version_min\":0, \"app_version_max\":6} ]}";
 
-    private static final String CC_REINSTALL_VALID_FOR_ALL_CC_VERSION =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String CC_REINSTALL_VALID_FOR_ALL_CC_VERSION = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":4, \"type\":\"cc_reinstall\", \"app_version_min\":0, \"app_version_max\":6} ]}";
 
-    private static final String APP_UPDATE_VALID_FOR_ALL_APP_VERSION =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String APP_UPDATE_VALID_FOR_ALL_APP_VERSION = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":5, \"type\":\"app_update\", \"cc_version_min\":\"2.44.0\", " +
             "\"cc_version_max\":\"2.90.0\" }]}";
 
-    private static final String VALID_FOR_ALL_HENCE_INVALID =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String VALID_FOR_ALL_HENCE_INVALID = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":6, \"type\":\"app_update\" }]}";
 
-    private static final String CC_UPDATE_INVALID_DUE_TO_LATEST_VERSION =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.44.0\"," +
+    private static final String CC_UPDATE_INVALID_DUE_TO_LATEST_VERSION = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.44.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":7, \"type\":\"cc_update\", \"app_version_min\":0, \"app_version_max\":6} ]}";
 
-    private static final String APP_UPDATE_INVALID_DUE_TO_LATEST_VERSION =  "{\"latest_ccz_version\":6, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String APP_UPDATE_INVALID_DUE_TO_LATEST_VERSION = "{\"latest_ccz_version\":6, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":8, \"type\":\"app_update\", \"cc_version_min\":\"2.44.0\", " +
             "\"cc_version_max\":\"2.90.0\" }]}";
 
-    private static final String CC_UPDATE_VALID =  "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
+    private static final String CC_UPDATE_VALID = "{\"latest_ccz_version\":9, \"latest_apk_version\":\"2.91.0\"," +
             "\"app_id\":\"ac46998a182d2e1d1fd8e75684d23903\",\"recovery_measures\": " +
             "[{\"sequence_number\":9, \"type\":\"cc_update\", \"app_version_min\":0, \"app_version_max\":6} ]}";
 
@@ -147,7 +147,7 @@ public class RecoveryMeasuresTest {
 
         // launch home activty
         StandardHomeActivity homeActivity =
-                Robolectric.buildActivity(StandardHomeActivity.class).withIntent(homeActivityIntent)
+                Robolectric.buildActivity(StandardHomeActivity.class, homeActivityIntent)
                         .create().start().resume().get();
         ShadowActivity shadowHomeActivity = Shadows.shadowOf(homeActivity);
 
@@ -161,7 +161,7 @@ public class RecoveryMeasuresTest {
         // Verify that Dispatch fires up the ExecuteRecoveryMeasuresActivity this time
         dispatchActivityController.resume();
         Intent executeRecoveryMeasuresActivityIntent = shadowDispatchActivity.getNextStartedActivity();
-        intentActivityName  = executeRecoveryMeasuresActivityIntent.getComponent().getClassName();
+        intentActivityName = executeRecoveryMeasuresActivityIntent.getComponent().getClassName();
         assertTrue(intentActivityName.contentEquals(ExecuteRecoveryMeasuresActivity.class.getName()));
     }
 

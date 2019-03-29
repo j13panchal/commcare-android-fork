@@ -1,7 +1,6 @@
 package org.commcare.android.tests.formnav;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowEnvironment;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -58,7 +56,7 @@ public class CalendarLocaleTest {
     private void navigateCalendarForm(Intent formEntryIntent) {
         // launch form entry
         FormEntryActivity formEntryActivity =
-                Robolectric.buildActivity(FormEntryActivity.class).withIntent(formEntryIntent)
+                Robolectric.buildActivity(FormEntryActivity.class, formEntryIntent)
                         .create().start().resume().get();
 
         ImageButton nextButton = formEntryActivity.findViewById(R.id.nav_btn_next);
@@ -78,7 +76,7 @@ public class CalendarLocaleTest {
         TextView ethiopianDayText = formEntryActivity.findViewById(R.id.daytxt);
         TextView ethiopianMonthText = formEntryActivity.findViewById(R.id.monthtxt);
         TextView ethiopianYearText = formEntryActivity.findViewById(R.id.yeartxt);
-        assertEquals("Säne",ethiopianMonthText.getText());
+        assertEquals("Säne", ethiopianMonthText.getText());
         assertEquals("26", ethiopianDayText.getText());
         assertEquals("2008", ethiopianYearText.getText());
     }
