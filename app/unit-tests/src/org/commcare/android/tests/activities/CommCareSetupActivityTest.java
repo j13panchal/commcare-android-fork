@@ -20,6 +20,8 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +46,7 @@ public class CommCareSetupActivityTest {
 
         // start the setup activity
         Intent setupIntent =
-                new Intent(RuntimeEnvironment.application, CommCareSetupActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), CommCareSetupActivity.class);
 
         CommCareSetupActivity setupActivity =
                 Robolectric.buildActivity(CommCareSetupActivity.class, setupIntent)
@@ -56,7 +58,7 @@ public class CommCareSetupActivityTest {
 
         // make sure there are no pinned notifications
         NotificationManager notificationManager =
-                (NotificationManager)RuntimeEnvironment.application.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager)ApplicationProvider.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = Shadows.shadowOf(notificationManager).getNotification(CommCareNoficationManager.MESSAGE_NOTIFICATION);
         assertNull(notification);
 

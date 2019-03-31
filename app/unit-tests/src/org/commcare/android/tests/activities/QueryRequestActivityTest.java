@@ -30,6 +30,8 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -53,7 +55,7 @@ public class QueryRequestActivityTest {
     @Test
     public void launchQueryActivityAtWrongTimeTest() {
         Intent queryActivityIntent =
-                new Intent(RuntimeEnvironment.application, QueryRequestActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), QueryRequestActivity.class);
         QueryRequestActivity queryRequestActivity =
                 Robolectric.buildActivity(QueryRequestActivity.class, queryActivityIntent)
                         .setup().get();
@@ -78,7 +80,7 @@ public class QueryRequestActivityTest {
                 new String[]{"jr://resource/commcare-apps/case_search_and_claim/good-query-result.xml"});
 
         Intent queryActivityIntent =
-                new Intent(RuntimeEnvironment.application, QueryRequestActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), QueryRequestActivity.class);
         QueryRequestActivity queryRequestActivity =
                 Robolectric.buildActivity(QueryRequestActivity.class, queryActivityIntent)
                         .setup().get();
@@ -113,7 +115,7 @@ public class QueryRequestActivityTest {
                 new String[]{"jr://resource/commcare-apps/case_search_and_claim/bad-query-result.xml"});
 
         Intent queryActivityIntent =
-                new Intent(RuntimeEnvironment.application, QueryRequestActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), QueryRequestActivity.class);
 
         ActivityController<QueryRequestActivity> controller =
                 Robolectric.buildActivity(QueryRequestActivity.class, queryActivityIntent)
@@ -159,7 +161,7 @@ public class QueryRequestActivityTest {
         setSessionCommand("patient-search");
 
         Intent queryActivityIntent =
-                new Intent(RuntimeEnvironment.application, QueryRequestActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), QueryRequestActivity.class);
 
         ActivityController<QueryRequestActivity> controller =
                 Robolectric.buildActivity(QueryRequestActivity.class, queryActivityIntent)
@@ -204,7 +206,7 @@ public class QueryRequestActivityTest {
                         "jr://resource/commcare-apps/case_search_and_claim/single-query-result.xml"});
 
         Intent queryActivityIntent =
-                new Intent(RuntimeEnvironment.application, QueryRequestActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), QueryRequestActivity.class);
 
         ActivityController<QueryRequestActivity> controller =
                 Robolectric.buildActivity(QueryRequestActivity.class, queryActivityIntent)

@@ -26,6 +26,8 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +46,7 @@ public class DemoUserRestoreTest {
 
     private static void loginAsDemoUser() {
         Intent loginActivityIntent =
-                new Intent(RuntimeEnvironment.application, LoginActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), LoginActivity.class);
         LoginActivity loginActivity =
                 Robolectric.buildActivity(LoginActivity.class, loginActivityIntent)
                         .setup().get();
@@ -54,7 +56,7 @@ public class DemoUserRestoreTest {
 
     private static ShadowActivity launchHomeActivityForDemoUser() {
         Intent homeActivityIntent =
-                new Intent(RuntimeEnvironment.application, StandardHomeActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), StandardHomeActivity.class);
         homeActivityIntent.putExtra(DispatchActivity.START_FROM_LOGIN, true);
         StandardHomeActivity homeActivity =
                 Robolectric.buildActivity(StandardHomeActivity.class, homeActivityIntent)

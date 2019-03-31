@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import androidx.test.core.app.ApplicationProvider;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -187,7 +188,7 @@ public class CommCareTestApplication extends CommCareApplication implements Test
 
     private static CommCareSessionService startRoboCommCareService() {
         Intent startIntent =
-                new Intent(RuntimeEnvironment.application, CommCareSessionService.class);
+                new Intent(ApplicationProvider.getApplicationContext(), CommCareSessionService.class);
         ServiceController<CommCareSessionService> serviceController =
                 Robolectric.buildService(CommCareSessionService.class, startIntent);
         serviceController

@@ -40,6 +40,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation ('org.robolectric:robolectric:4.2')
     testImplementation 'org.robolectric:shadows-multidex:4.2'
+    testImplementation 'androidx.test:core:1.0.0'
     testImplementation 'org.json:json:20140107'
     testImplementation project(path: ':commcare-core', configuration: 'testsAsJar')
 

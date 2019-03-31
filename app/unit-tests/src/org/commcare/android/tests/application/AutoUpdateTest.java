@@ -26,6 +26,8 @@ import org.robolectric.annotation.Config;
 
 import java.util.Calendar;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -58,7 +60,7 @@ public class AutoUpdateTest {
 
         // try to update to an app with syntax errors
         UpdateTask updateTask = UpdateTask.getNewInstance();
-        updateTask.startPinnedNotification(RuntimeEnvironment.application);
+        updateTask.startPinnedNotification(ApplicationProvider.getApplicationContext());
         updateTask.setAsAutoUpdate();
         try {
             TaskListener<Integer, ResultAndError<AppInstallStatus>> listener =

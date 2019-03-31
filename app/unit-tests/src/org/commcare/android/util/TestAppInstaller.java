@@ -17,6 +17,8 @@ import org.javarosa.core.util.PropertyUtils;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 
+import androidx.test.core.app.ApplicationProvider;
+
 /**
  * Functionality to install an app from local storage, create a test user, log
  * into a user session
@@ -111,7 +113,7 @@ public class TestAppInstaller {
 
     private void buildTestUser() {
         CommCareApp ccApp = CommCareApplication.instance().getCurrentApp();
-        DemoUserBuilder.buildTestUser(RuntimeEnvironment.application,
+        DemoUserBuilder.buildTestUser(ApplicationProvider.getApplicationContext(),
                 ccApp,
                 username, password);
     }

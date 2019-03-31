@@ -16,6 +16,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import androidx.test.core.app.ApplicationProvider;
+
 /**
  * Coverage for different DataPullTask codepaths.
  * Doesn't yet check logical correctness of any actions.
@@ -153,7 +155,7 @@ public class DataPullTaskTest {
         LocalReferencePullResponseFactory.setRequestPayloads(payloadResources);
 
         DataPullTask<Object> task =
-                new DataPullTask<Object>("test", "123", null, "fake.server.com", RuntimeEnvironment.application, LocalReferencePullResponseFactory.INSTANCE, false) {
+                new DataPullTask<Object>("test", "123", null, "fake.server.com", ApplicationProvider.getApplicationContext(), LocalReferencePullResponseFactory.INSTANCE, false) {
                     @Override
                     protected void deliverResult(Object o, ResultAndError<PullTaskResult> pullTaskResultResultAndError) {
                         dataPullResult = pullTaskResultResultAndError;

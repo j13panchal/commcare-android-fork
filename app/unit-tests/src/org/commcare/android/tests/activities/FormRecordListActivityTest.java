@@ -24,6 +24,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowListView;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -53,7 +55,7 @@ public class FormRecordListActivityTest {
 
     public static void openASavedForm(int expectedFormCount, int formIndexToSelect) {
         Intent savedFormsIntent =
-                new Intent(RuntimeEnvironment.application, FormRecordListActivity.class);
+                new Intent(ApplicationProvider.getApplicationContext(), FormRecordListActivity.class);
         ShadowActivity homeActivityShadow = prepSavedFormsActivity(savedFormsIntent);
 
         FormRecordListActivity savedFormsActivity =

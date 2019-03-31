@@ -27,6 +27,8 @@ import org.robolectric.annotation.Config;
 
 import java.util.Date;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -136,7 +138,7 @@ public class KeyRecordTest {
 
     private void runKeyRecordTask(String password, String keyXmlFile, MessageTag expectedMessage) {
         ManageKeyRecordTaskFake keyRecordTest =
-                new ManageKeyRecordTaskFake(RuntimeEnvironment.application, 1, "test",
+                new ManageKeyRecordTaskFake(ApplicationProvider.getApplicationContext(), 1, "test",
                         password, LoginMode.PASSWORD, app, false, false, keyXmlFile);
         keyRecordTest.connect((CommCareTaskConnector)new DataPullControllerMock(expectedMessage));
         keyRecordTest.execute();
