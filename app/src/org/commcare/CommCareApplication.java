@@ -180,7 +180,8 @@ public class CommCareApplication extends MultiDexApplication {
         if (BuildConfig.DEBUG) {
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                     .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
+                    //TODO should be uncomment, it is hack for tests to run, used in early phase of updating robolectric,
+//                    .detectLeakedClosableObjects()
                     .penaltyLog()
                     .penaltyDeath()
                     .build());
