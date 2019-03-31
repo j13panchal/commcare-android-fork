@@ -31,18 +31,4 @@ public class CommCareTestRunner extends RobolectricTestRunner {
         builder.addInstrumentedPackage("org.commcare.models.encryption");
         return builder.build();
     }
-
-
-    @NotNull
-    @Override
-    protected Class<? extends TestLifecycle> getTestLifecycleClass() {
-        return CommCareTestLifeCycle.class;
-    }
-
-    public static class CommCareTestLifeCycle extends DefaultTestLifecycle {
-        @Override
-        public void prepareTest(Object test) {
-            ShadowEnvironment.setExternalStorageState(Environment.MEDIA_MOUNTED);
-        }
-    }
 }

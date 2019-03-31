@@ -2,6 +2,7 @@ package org.commcare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 
 import org.commcare.android.database.app.models.UserKeyRecord;
@@ -34,6 +35,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.TestLifecycleApplication;
 import org.robolectric.android.controller.ServiceController;
+import org.robolectric.shadows.ShadowEnvironment;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -60,6 +62,9 @@ public class CommCareTestApplication extends CommCareApplication implements Test
     private String cachedUserPassword;
 
     private final ArrayList<Throwable> asyncExceptions = new ArrayList<>();
+    private CommCareTestApplication(){
+        ShadowEnvironment.setExternalStorageState(Environment.MEDIA_MOUNTED);
+    }
 
     @Override
     public void onCreate() {
